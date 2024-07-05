@@ -39,4 +39,14 @@ class PostController extends Controller
         return redirect('/posts/' . $post->id);//redirect関数に$post->idを渡すことで，作成した投稿ページへ画面を遷移させる
         //dd($request->all());ダンプ表示
     }
+    public function edit(Post $post)
+    {
+        return view('posts.edit')->with(['post' => $post]);
+    }
+    public function update(PostRequest $request, Post $post)
+    {
+        $input__post = $request['post'];
+        $post->fill($input__post)->save();
+        return redirect('/posts/' . $post->id);
+    }
 }
